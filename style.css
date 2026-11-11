@@ -165,3 +165,25 @@ body {
         height: 480px; 
     }
 }
+/* --- Стили для падающих сердечек --- */
+.heart {
+    position: fixed; /* Сердечко привязано к экрану, а не к карточке */
+    top: -50px; /* Начинает падать сверху */
+    font-size: 24px;
+    color: #ff4d6d; /* Красивый розово-красный цвет */
+    z-index: 100; /* Поверх всего */
+    pointer-events: none; /* Чтобы сердечки не мешали кликать мышкой */
+    animation: fall linear forwards;
+}
+
+/* Анимация падения */
+@keyframes fall {
+    0% { 
+        transform: translateY(0) rotate(0deg); 
+        opacity: 1;
+    }
+    100% { 
+        transform: translateY(100vh) rotate(360deg); /* Падает вниз и крутится */
+        opacity: 0; /* Исчезает в конце */
+    }
+}
