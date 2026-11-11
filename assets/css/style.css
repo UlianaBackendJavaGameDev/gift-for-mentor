@@ -1,0 +1,167 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+/* Обертка для всей карточки */
+.card {
+    position: relative;
+    width: 320px;
+    height: 220px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.5s ease;
+}
+
+/* Кнопка (скрывается, когда открываем) */
+.open-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 12px 24px;
+    background: #667eea;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    z-index: 10;
+    transition: opacity 0.3s ease;
+}
+
+.card.is-open .open-btn {
+    opacity: 0;
+    pointer-events: none; /* Кнопка больше не кликабельна */
+}
+
+/* Конверт (визуальная часть) */
+.envelope {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: #e2e8f0; /* Цвет конверта */
+    border-radius: 10px;
+    z-index: 5;
+    transition: transform 0.5s ease;
+    border: 2px solid #cbd5e1;
+}
+
+/* Треугольник на конверте (клапан) */
+.envelope::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-left: 160px solid transparent;
+    border-right: 160px solid transparent;
+    border-top: 110px solid #cbd5e1; /* Цвет клапана */
+    transition: transform 0.5s ease;
+    transform-origin: top;
+}
+
+/* Письмо */
+.letter {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    width: calc(100% - 20px);
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 4; /* Под конвертом */
+    transition: all 0.8s ease;
+    opacity: 0; /* Скрыто по умолчанию */
+    transform: translateY(0);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.letter h2 {
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.letter p {
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.letter .signature {
+    text-align: right;
+    font-style: italic;
+    color: #667eea;
+    margin-top: 15px;
+}
+
+/* === МАГИЯ ПРИ ОТКРЫТИИ === */
+.card.is-open {
+    height: 500px; /* Карточка растягивается */
+}
+
+.card.is-open .envelope {
+    transform: translateY(20px); /* Конверт опускается */
+    border-color: transparent;
+}
+
+.card.is-open .envelope::before {
+    transform: rotateX(180deg); /* Клапан открывается */
+}
+
+.card.is-open .letter {
+    opacity: 1;
+    transform: translateY(-180px); /* Письмо выезжает вверх */
+    z-index: 6; /* Письмо теперь над конвертом */
+    height: auto;
+}
+/* ===== АДАПТИВ ДЛЯ МОБИЛЬНЫХ (до 480px) ===== */
+@media (max-width: 480px) {
+    /* 1. Делаем карточку резиновой (занимает 90% ширины экрана) */
+    .card {
+        width: 90%;
+        max-width: 320px; /* Но не шире 320px */
+    }
+
+    /* 2. Пересчитываем размеры конверта и клапана под новую ширину */
+    /* Если ширина карточки 90% (например, 300px), то половина — это 150px */
+    .envelope::before {
+        border-left: 45vw solid transparent; 
+        border-right: 45vw solid transparent;
+        border-top: 110px solid #cbd5e1;
+        max-width: 100%;
+    }
+
+    /* 3. Делаем шрифт в письме чуть меньше, чтобы текст влез */
+    .letter {
+        font-size: 13px;
+        padding: 15px;
+    }
+
+    .letter h2 {
+        font-size: 16px;
+    }
+
+    /* 4. Корректируем выезд письма, чтобы оно не улетало слишком высоко */
+    .card.is-open .letter {
+        transform: translateY(-150px);
+    }
+    
+    /* 5. Увеличиваем высоту карточки при открытии на мобилке */
+    .card.is-open {
+        height: 480px; 
+    }
+}
