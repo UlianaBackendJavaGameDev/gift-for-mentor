@@ -128,6 +128,27 @@ body {
     z-index: 6; /* Письмо теперь над конвертом */
     height: auto;
 }
+.music-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 20;
+    transition: all 0.3s ease;
+    color: #667eea; /* Цвет иконки по умолчанию */
+}
+
+.music-btn:hover {
+    background: #fff;
+    transform: scale(1.1);
+}
 /* ===== АДАПТИВ ДЛЯ МОБИЛЬНЫХ (до 480px) ===== */
 @media (max-width: 480px) {
     /* 1. Делаем карточку резиновой (занимает 90% ширины экрана) */

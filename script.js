@@ -1,8 +1,26 @@
 document.addEventListener("DOMContentLoaded", () => {
     const card = document.getElementById('card');
     const openBtn = document.getElementById('openBtn');
+    const musicBtn = document.getElementById('music-btn');
+    const bgMusic = document.getElementById('bg-music');
 
-
+    if(musicBtn && bgMusic){
+        musicBtn.addEventListener('click', () => {
+            if(bgMusic.paused){
+                bgMusic.play();
+                musicBtn.textContent = '🔇';
+                musicBtn.style.color = '#ff4d6d';
+            } else{
+                bgMusic.pause();
+                musicBtn.textContent = '♪';
+                musicBtn.style.color = '#667eea'
+            }
+        })
+    }
+    
+    
+    
+    
     if(card && openBtn){
         openBtn.addEventListener('click', () => {
             card.classList.add('is-open')
